@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import educaweb.com.course.entidade.Usuario;
 import educaweb.com.course.service.UsuarioServico;
-import educaweb.com.course.usuario.Usuario;
 
 @RestController
 @RequestMapping(value = "/usuario")

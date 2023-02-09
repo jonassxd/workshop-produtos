@@ -7,8 +7,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import educaweb.com.course.entidade.Usuario;
 import educaweb.com.course.repositores.UsuarioRepositor;
-import educaweb.com.course.usuario.Usuario;
 
 @Configuration
 @Profile("test")

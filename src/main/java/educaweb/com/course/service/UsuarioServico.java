@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import educaweb.com.course.entidade.Usuario;
 import educaweb.com.course.repositores.UsuarioRepositor;
-import educaweb.com.course.usuario.Usuario;
 
 @Service
 public class UsuarioServico {

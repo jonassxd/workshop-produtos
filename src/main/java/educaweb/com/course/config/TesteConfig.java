@@ -9,11 +9,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import educaweb.com.course.entidade.Categoria;
+import educaweb.com.course.entidade.ItemPedido;
 import educaweb.com.course.entidade.Pedido;
 import educaweb.com.course.entidade.Produto;
 import educaweb.com.course.entidade.Usuario;
 import educaweb.com.course.entidade.enums.PedidoStatus;
 import educaweb.com.course.repositores.CategoriaRepositor;
+import educaweb.com.course.repositores.ItemPedidoRepositor;
 import educaweb.com.course.repositores.PedidoRepositor;
 import educaweb.com.course.repositores.ProdutoRepositor;
 import educaweb.com.course.repositores.UsuarioRepositor;
@@ -33,6 +35,9 @@ public class TesteConfig implements CommandLineRunner {
 	
 	@Autowired 
 	private ProdutoRepositor produtoRepositor;
+	
+	@Autowired
+	private ItemPedidoRepositor itemPedidoRepositor;
 	
 	
 	
@@ -74,7 +79,13 @@ public class TesteConfig implements CommandLineRunner {
 		usuarioRepositor.saveAll(Arrays.asList(u1, u2));
 		pedidoRepositor.saveAll(Arrays.asList(o1,o2,o3));
 		
+		ItemPedido ip1 = new ItemPedido(o1, p1, 2, p1.getPreco()); 
+		ItemPedido ip2 = new ItemPedido(o1, p3, 1, p3.getPreco()); 
+		ItemPedido ip3 = new ItemPedido(o2, p3, 2, p3.getPreco()); 
+		ItemPedido ip4 = new ItemPedido(o3, p5, 2, p5.getPreco()); 
 		
+		itemPedidoRepositor.saveAll(Arrays.asList(ip1,ip2,ip3,ip4));
+	
 	}
 	
 	

@@ -3,6 +3,8 @@ package educaweb.com.course.entidade;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import educaweb.com.course.entidade.pk.ItemPedidoPK;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -14,7 +16,7 @@ public class ItemPedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@EmbeddedId
-	private ItemPedidoPK id;
+	private ItemPedidoPK id = new ItemPedidoPK();
 
 	private Integer quantidade;
 	private Double preco;
@@ -25,13 +27,14 @@ public class ItemPedido implements Serializable {
 
 	public ItemPedido(Pedido pedido, Produto prroduto, Integer quantidade, Double price) {
 		super();
+		
 		id.setPedido(pedido);
 		id.setProduto(prroduto);
 		this.quantidade = quantidade;
 		this.preco = price;
 
 	}
-
+	@JsonIgnore
 	public Pedido getPedido() {
 		return id.getPedido();
 	}
@@ -39,7 +42,7 @@ public class ItemPedido implements Serializable {
 	public void SetPedido(Pedido pedido) {
 		id.setPedido(pedido);
 	}
-
+	
 	public Produto getProduto() {
 		return id.getProduto();
 	}

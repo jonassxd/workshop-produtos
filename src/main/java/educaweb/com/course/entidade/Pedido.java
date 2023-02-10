@@ -2,10 +2,11 @@ package educaweb.com.course.entidade;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
 
 import educaweb.com.course.entidade.enums.PedidoStatus;
 import jakarta.persistence.Entity;
@@ -14,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Pedido implements Serializable {
@@ -25,12 +27,15 @@ public class Pedido implements Serializable {
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T' HH:mm:ss'Z'", timezone = "GMT")
 	private Instant momento;
-	
+
 	private Integer pedidoStatus;
 
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Usuario cliente;
+
+	@OneToMany(mappedBy = "id.pedido")
+	private Set<ItemPedido> items = new HashSet<>();
 
 	public Pedido() {
 
@@ -42,7 +47,7 @@ public class Pedido implements Serializable {
 		this.momento = momento;
 		setPedidoStatus(pedidoStatus);
 		this.cliente = cliente;
-		
+
 	}
 
 	public Long getId() {
@@ -69,16 +74,18 @@ public class Pedido implements Serializable {
 		this.cliente = cliente;
 	}
 
-	
 	public PedidoStatus getPedidoStatus() {
-		return  PedidoStatus.valueOf(pedidoStatus);
+		return PedidoStatus.valueOf(pedidoStatus);
 	}
 
 	public void setPedidoStatus(PedidoStatus pedidoStatus) {
-		if(pedidoStatus != null) {
+		if (pedidoStatus != null) {
 			this.pedidoStatus = pedidoStatus.getCode();
 		}
-		
+	}
+
+	public Set<ItemPedido> getItems() {
+		return items;
 	}
 
 	@Override

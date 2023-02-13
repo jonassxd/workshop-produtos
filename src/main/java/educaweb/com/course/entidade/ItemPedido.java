@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 @Table(name = "tb_pedido_item")
 public class ItemPedido implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@EmbeddedId
 	private ItemPedidoPK id = new ItemPedidoPK();
 
@@ -27,13 +27,14 @@ public class ItemPedido implements Serializable {
 
 	public ItemPedido(Pedido pedido, Produto prroduto, Integer quantidade, Double price) {
 		super();
-		
+
 		id.setPedido(pedido);
 		id.setProduto(prroduto);
 		this.quantidade = quantidade;
 		this.preco = price;
 
 	}
+
 	@JsonIgnore
 	public Pedido getPedido() {
 		return id.getPedido();
@@ -42,7 +43,7 @@ public class ItemPedido implements Serializable {
 	public void SetPedido(Pedido pedido) {
 		id.setPedido(pedido);
 	}
-	
+
 	public Produto getProduto() {
 		return id.getProduto();
 	}

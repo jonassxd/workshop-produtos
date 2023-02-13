@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 
 import educaweb.com.course.entidade.Categoria;
 import educaweb.com.course.entidade.ItemPedido;
+import educaweb.com.course.entidade.Pagamento;
 import educaweb.com.course.entidade.Pedido;
 import educaweb.com.course.entidade.Produto;
 import educaweb.com.course.entidade.Usuario;
@@ -85,7 +86,11 @@ public class TesteConfig implements CommandLineRunner {
 		ItemPedido ip4 = new ItemPedido(o3, p5, 2, p5.getPreco()); 
 		
 		itemPedidoRepositor.saveAll(Arrays.asList(ip1,ip2,ip3,ip4));
-	
+		
+		Pagamento pag1 = new Pagamento(null, Instant.parse("2019-06-20T21:54:07Z"), o1);
+		o1.setPagamento(pag1);
+		
+		pedidoRepositor.save(o1);
 	}
 	
 	

@@ -31,8 +31,8 @@ public class Pedido implements Serializable {
 	private Instant momento;
 
 	private Integer pedidoStatus;
-	
-	@OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)	
+
+	@OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
 	private Pagamento pagamento;
 
 	@ManyToOne
@@ -100,6 +100,14 @@ public class Pedido implements Serializable {
 
 	public Set<ItemPedido> getItems() {
 		return items;
+	}
+
+	public Double getTotal() {
+		double soma = 0;
+		for (ItemPedido x : items) {
+			soma += soma + x.getSubTotal();
+		}
+		return soma;
 	}
 
 	@Override

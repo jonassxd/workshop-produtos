@@ -4,15 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import educaweb.com.course.entidade.Usuario;
 import educaweb.com.course.repositores.UsuarioRepositor;
+import educaweb.com.course.service.exceptions.DataBaseException;
 import educaweb.com.course.service.exceptions.ResourceNotFoundException;
 
 @Service
@@ -38,7 +36,14 @@ public class UsuarioServico {
 	}
 
 	public void delete(Long id) {
-		repositor.deleteById(id);
+		try {
+			repositor.deleteById(id);
+
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		}catch (DataIntegrityViolationException e) {
+			throw new DataBaseException(e.getMessage());
+		}
 	}
 
 	public Usuario atualizar(Long id, Usuario obj) {

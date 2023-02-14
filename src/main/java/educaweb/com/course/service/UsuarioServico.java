@@ -12,6 +12,7 @@ import educaweb.com.course.entidade.Usuario;
 import educaweb.com.course.repositores.UsuarioRepositor;
 import educaweb.com.course.service.exceptions.DataBaseException;
 import educaweb.com.course.service.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class UsuarioServico {
@@ -41,15 +42,21 @@ public class UsuarioServico {
 
 		} catch (EmptyResultDataAccessException e) {
 			throw new ResourceNotFoundException(id);
-		}catch (DataIntegrityViolationException e) {
+		} catch (DataIntegrityViolationException e) {
 			throw new DataBaseException(e.getMessage());
 		}
 	}
 
 	public Usuario atualizar(Long id, Usuario obj) {
-		Usuario entidade = repositor.getReferenceById(id);
-		atualizarDados(entidade, obj);
-		return repositor.save(entidade);
+		try {
+
+			Usuario entidade = repositor.getReferenceById(id);
+			atualizarDados(entidade, obj);
+			return repositor.save(entidade);
+		} catch (EntityNotFoundException e) {
+			
+		}throw new ResourceNotFoundException(id);
+
 	}
 
 	private void atualizarDados(Usuario entidade, Usuario obj) {

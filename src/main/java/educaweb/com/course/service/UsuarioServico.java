@@ -6,12 +6,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import educaweb.com.course.entidade.Usuario;
 import educaweb.com.course.repositores.UsuarioRepositor;
+import educaweb.com.course.service.exceptions.ResourceNotFoundException;
 
 @Service
 public class UsuarioServico {
@@ -27,7 +29,7 @@ public class UsuarioServico {
 
 	public Usuario findById(Long id) {
 		Optional<Usuario> obj = repositor.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 
 	}
 

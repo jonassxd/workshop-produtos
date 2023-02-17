@@ -1,6 +1,6 @@
 # Sobre o Projeto :
 
-É  um projeto de uma loja e-commerce webservice da  **UDEMY**  com Spring Boot, JPA, Hibernate e com um banco de dados em memória 
+É  um projeto de uma loja e-commerce webservice desenvolvido com um professor da **UDEMY**  com Spring Boot, JPA, Hibernate e com um banco de dados em memória 
 que é o H2.
 
 Back end :
